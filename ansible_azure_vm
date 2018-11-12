@@ -1,35 +1,35 @@
-- name: Create Azure VM
+- name: Create  VM
   hosts: localhost
   connection: local
   tasks:
   - name: Create resource group
     azure_rm_resourcegroup:
-      name: myResourceGroup
-      location: eastus
+      name: thegroup
+      location: southcentralus
   - name: Create virtual network
     azure_rm_virtualnetwork:
-      resource_group: myResourceGroup
+      resource_group: thegroup
       name: myVnet
       address_prefixes: "10.0.0.0/16"
   - name: Add subnet
     azure_rm_subnet:
-      resource_group: myResourceGroup
+      resource_group: thegroup
       name: mySubnet
       address_prefix: "10.0.1.0/24"
       virtual_network: myVnet
   - name: Create public IP address
     azure_rm_publicipaddress:
-      resource_group: myResourceGroup
+      resource_group: thegroup
       allocation_method: Static
       name: myPublicIP
     register: output_ip_address
-  - name: Dump public IP for VM which will be created
+  - name: Output public IP 
     debug:
-      msg: "The public IP is {{ output_ip_address.state.ip_address }}."
+      msg: "Public IP is {{ output_ip_address.state.ip_address }}."
   - name: Create Network Security Group that allows SSH
     azure_rm_securitygroup:
-      resource_group: myResourceGroup
-      name: myNetworkSecurityGroup
+      resource_group: thegroup
+      name: thensggroup
       rules:
         - name: SSH
           protocol: Tcp
@@ -39,9 +39,9 @@
           direction: Inbound
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
-      resource_group: myResourceGroup
-      name: myNIC
-      virtual_network: myVnet
+      resource_group: thegroup
+      name: thenic
+      virtual_network: thevnet
       subnet: mySubnet
       public_ip_name: myPublicIP
       security_group: myNetworkSecurityGroup
@@ -57,7 +57,7 @@
           key_data: <your-key-data>
       network_interfaces: myNIC
       image:
-        offer: CentOS
-        publisher: OpenLogic
-        sku: '7.5'
+        offer: UbuntuServer
+        publisher: Canonical
+        sku: '16.04'
         version: latest
