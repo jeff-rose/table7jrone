@@ -4,7 +4,7 @@
   tasks:
     - name: deallocate jenkins vm
       azure_rm_virtualmachine:
-        resource_group: table1jrrg
+        resource_group: table1jrdevopsrg
         name: table1jrdevopsvm
         state: present
         allocated: no
