@@ -1,0 +1,10 @@
+---
+  - name: Remove resource group
+    hosts: localhost
+    tasks:
+      - name: Remove resource group
+        azure_rm_resourcegroup:
+          name: table1jrrg2
+          state: absent
+          force: yes
+          
