@@ -61,3 +61,8 @@
         publisher: Canonical
         sku: '16.04-LTS'
         version: latest
+  - name: Install apache
+    apt:
+      pkg: apache2
+      state: present
+      update_cache: true
