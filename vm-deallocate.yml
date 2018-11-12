@@ -1,0 +1,10 @@
+---
+- name: deallocate jenkins vm
+  hosts: localhost
+  tasks:
+    - name: deallocate jenkins vm
+      azure_rm_virtualmachine:
+        resource_group: table1jrrg
+        name: table1jrdevopsvm
+        state: present
+        allocated: no
