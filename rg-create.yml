@@ -55,7 +55,7 @@
       ssh_public_keys:
         - path: /home/azureops/.ssh/authorized_keys
           key_data: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/7QC5qWGweVImz0o2kZ84AsDbqV4a6GAfsi273FHMwZQUMgq9pU20grxzMbF/ZnXxhtM9lij1s3pa9CO1/+MF0ygs+ihOuNmGF7hrGnigjL0hmG8+XUBjgqD5Y1rlcjoVr0S6KNBbPzd+Wvu0wcl58UZlCdBR2K+ShLIQgC8v6O/6AzATih2yCOa+4OGTL/QkIDxWX7wE4HqLOkq/X8vJ2F0UalX4NzRd1T1kMBDTxzIMVWp0GBXI2v3w8TPizdE7de9sQ/wcIson62DFlE8bOH7V22ZwS4MYdJZM/NKbF1uaZl6IeEuorKzwLBAwAn03T+QR/68eq4EMpOMinsZx"
-      network_interfaces: table1jrmyNIC
+      network_interfaces: table1jrthenic
       image:
         offer: UbuntuServer
         publisher: Canonical
