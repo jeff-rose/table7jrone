@@ -4,32 +4,32 @@
   tasks:
   - name: Create resource group
     azure_rm_resourcegroup:
-      name: thegroup
-      location: southcentralus
+      name: table1jrrg2
+      location: westus
   - name: Create virtual network
     azure_rm_virtualnetwork:
-      resource_group: thegroup
-      name: myVnet
+      resource_group: table1jrrg2
+      name: table1jrmyVnet
       address_prefixes: "10.0.0.0/16"
   - name: Add subnet
     azure_rm_subnet:
-      resource_group: thegroup
-      name: mySubnet
+      resource_group: table1jrrg2
+      name: table1jrmySubnet
       address_prefix: "10.0.1.0/24"
-      virtual_network: myVnet
+      virtual_network: table1jrmyVnet
   - name: Create public IP address
     azure_rm_publicipaddress:
-      resource_group: thegroup
+      resource_group: table1jrmyrg2
       allocation_method: Static
-      name: myPublicIP
+      name: table1jrmyPublicIP
     register: output_ip_address
   - name: Output public IP 
     debug:
       msg: "Public IP is {{ output_ip_address.state.ip_address }}."
   - name: Create Network Security Group that allows SSH
     azure_rm_securitygroup:
-      resource_group: thegroup
-      name: thensggroup
+      resource_group: table1jrrg2
+      name: table1jrmyNetworkSecurityGroup
       rules:
         - name: SSH
           protocol: Tcp
@@ -39,25 +39,25 @@
           direction: Inbound
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
-      resource_group: thegroup
-      name: thenic
-      virtual_network: thevnet
-      subnet: mySubnet
-      public_ip_name: myPublicIP
-      security_group: myNetworkSecurityGroup
+      resource_group: table1jrrg2
+      name: table1jrthenic
+      virtual_network: table1jrmyVnet
+      subnet: table1jrmySubnet
+      public_ip_name: table1jrmyPublicIP
+      security_group: table1jrmyNetworkSecurityGroup
   - name: Create VM
     azure_rm_virtualmachine:
-      resource_group: myResourceGroup
-      name: myVM
+      resource_group: table1jrrg2
+      name: table1jrmyVM
       vm_size: Standard_DS1_v2
-      admin_username: azureuser
+      admin_username: azureops
       ssh_password_enabled: false
       ssh_public_keys:
-        - path: /home/azureuser/.ssh/authorized_keys
-          key_data: <your-key-data>
-      network_interfaces: myNIC
+        - path: /home/azureops/.ssh/authorized_keys
+          key_data: ""
+      network_interfaces: table1jrmyNIC
       image:
         offer: UbuntuServer
         publisher: Canonical
-        sku: '16.04'
+        sku: '16.04-LTS'
         version: latest
