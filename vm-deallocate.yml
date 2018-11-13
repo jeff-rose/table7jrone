@@ -1,4 +1,5 @@
 ---
+# Bad idea
 - name: deallocate jenkins vm
   hosts: localhost
   tasks:
