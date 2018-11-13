@@ -33,6 +33,6 @@
   - include_tasks: vmdetails.yml
     loop:
       - { name: 'one', tag: 'nginx' }
-      - { name: 'two', tag: 'apache2' }
+      - { name: 'two', tag: 'apache' }
     loop_control:
       loop_var: vm
