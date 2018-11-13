@@ -19,15 +19,6 @@
       name: "{{subnet_name}}"
       address_prefix: "10.0.1.0/24"
       virtual_network: "{{vnet}}"
-  - name: Create public IP address
-    azure_rm_publicipaddress:
-      resource_group: "{{group_name}}"
-      allocation_method: Static
-      name: "{{publicip}}"
-    register: output_ip_address
-  - name: Output public IP
-    debug:
-      msg: "Public IP is {{ output_ip_address.state.ip_address }}."
   - name: Create Network Security Group that allows SSH
     azure_rm_securitygroup:
       resource_group: "{{group_name}}"
@@ -39,27 +30,9 @@
           access: Allow
           priority: 1001
           direction: Inbound
-  - name: Create virtual network inteface card
-    azure_rm_networkinterface:
-      resource_group: "{{group_name}}"
-      name: "{{nic_name}}"
-      virtual_network: "{{vnet}}"
-      subnet: "{{subnet_name}}"
-      public_ip_name: "{{publicip}}"
-      security_group: "{{nsg_name}}"
-  - name: Create VM
-    azure_rm_virtualmachine:
-      resource_group: "{{group_name}}"
-      name: table1jrmyVM
-      vm_size: Standard_DS1_v2
-      admin_username: azureops
-      ssh_password_enabled: false
-      ssh_public_keys:
-        - path: /home/azureops/.ssh/authorized_keys
-          key_data: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/7QC5qWGweVImz0o2kZ84AsDbqV4a6GAfsi273FHMwZQUMgq9pU20grxzMbF/ZnXxhtM9lij1s3pa9CO1/+MF0ygs+ihOuNmGF7hrGnigjL0hmG8+XUBjgqD5Y1rlcjoVr0S6KNBbPzd+Wvu0wcl58UZlCdBR2K+ShLIQgC8v6O/6AzATih2yCOa+4OGTL/QkIDxWX7wE4HqLOkq/X8vJ2F0UalX4NzRd1T1kMBDTxzIMVWp0GBXI2v3w8TPizdE7de9sQ/wcIson62DFlE8bOH7V22ZwS4MYdJZM/NKbF1uaZl6IeEuorKzwLBAwAn03T+QR/68eq4EMpOMinsZx"
-      network_interfaces: "{{nic_name}}"
-      image:
-        offer: UbuntuServer
-        publisher: Canonical
-        sku: '16.04-LTS'
-        version: latest
+  - include_tasks: vmdetails.yml
+    loop:
+      - { name: 'one', tag: 'nginx' }
+      - { name: 'two', tag: 'apache2' }
+    loop_control:
+      loop_var: vm
