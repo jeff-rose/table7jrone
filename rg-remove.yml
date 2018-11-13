@@ -1,10 +1,11 @@
 ---
   - name: Remove resource group
     hosts: localhost
+    vars_files:
+      - vars.yml
     tasks:
       - name: Remove resource group
         azure_rm_resourcegroup:
-          name: table1jrrg2
+          name: "{{group_name}}"
           state: absent
           force: yes
-          
