@@ -19,6 +19,8 @@
     azure_rm_virtualmachine:
       resource_group: "{{group_name}}"
       name: "{{prefix}}{{vm.name}}"
+      tags:
+        machine_role: "{{vm.tag}}"
       vm_size: Standard_DS1_v2
       admin_username: azureops
       ssh_password_enabled: false
