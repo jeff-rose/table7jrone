@@ -1,22 +1,23 @@
 ---
 - name: something
   hosts: localhost
+  vars_files:
+    - vars.yml
   vars:
-    group: table1jrrg2
-    webapp_name: table1jrwebapp
+    webapp_name: "{{prefix}}webapp"
     location: westus
   tasks:
     - name: create rg
       azure_rm_resourcegroup:
-        name: "{{group}}"
+        name: "{{group_name}}"
         location: "{{location}}"
     - name: create app svc
       azure_rm_webapp:
-        resource_group: "{{group}}"
+        resource_group: "{{group_name}}"
         name: "{{webapp_name}}"
         plan:
-          resource_group: "{{group}}"
-          name: table1jrappplan
+          resource_group: "{{group_name}}"
+          name: "{{prefix}}appplan"
           is_linux: true
           sku: S1
           number_of_workers: 1
