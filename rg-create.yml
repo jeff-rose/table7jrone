@@ -32,7 +32,7 @@
           direction: Inbound
         - name: Web
           protocol: Tcp
-          destication_port_range: 80
+          destination_port_range: 80
           access: Allow
           priority: 1002
           direction: inbound
