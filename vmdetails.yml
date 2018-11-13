@@ -2,7 +2,7 @@
     azure_rm_publicipaddress:
       resource_group: "{{group_name}}"
       allocation_method: Static
-      name: "{{publicip}}{{vm.name}}"
+      name: "{{publicip}}pubip{{vm.name}}"
     register: output_ip_address
   - name: Output public IP
     debug:
@@ -13,7 +13,7 @@
       name: "{{nic_name}}{{vm.name}}"
       virtual_network: "{{vnet}}"
       subnet: "{{subnet_name}}"
-      public_ip_name: "{{publicip}}{{vm.name}}"
+      public_ip_name: "{{publicip}}pubip{{vm.name}}"
       security_group: "{{nsg_name}}"
   - name: Create VM
     azure_rm_virtualmachine:
