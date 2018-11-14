@@ -2,13 +2,10 @@
   hosts: localhost
   connection: local
   tasks:
-  - name: Create resource group
-    azure_rm_resourcegroup:
-      name: table1jrwebapprg
-      location: westus
   - name: Deploy ARM template
     azure_rm_deployment:
       state: present
+      location: westus
       resource_group_name: table1jrwebapprg
       template_link: "https://github.com/jeff-rose/arm/blob/master/template.json"
       parameters_link: "https://github.com/jeff-rose/arm/blob/master/parameters.json"
